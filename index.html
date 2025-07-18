@@ -37,17 +37,6 @@
       opacity: 1;
     }
 
-    /* Star particles */
-    .particles::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url('https://cdn.jsdelivr.net/gh/rajatkulkarni95/static/particles-light.svg') repeat;
-      opacity: 0.15;
-      animation: moveParticles 90s linear infinite;
-      z-index: -1;
-    }
-
     @keyframes moveParticles {
       0% { background-position: 0 0; }
       100% { background-position: 1000px 1000px; }
@@ -70,10 +59,13 @@
   </style>
 </head>
 
-<body class="relative bg-gray-900 text-white min-h-screen flex flex-col overflow-hidden particles">
+<body class="relative bg-gray-900 text-white min-h-screen flex flex-col overflow-hidden">
+
+  <!-- Particles.js container -->
+  <div id="particles-js" class="absolute inset-0 -z-10"></div>
 
   <!-- Animated Smoke Background -->
-  <div class="absolute inset-0 -z-10 overflow-hidden">
+  <div class="absolute inset-0 -z-20 overflow-hidden">
     <div class="absolute top-0 left-0 w-[400px] h-[400px] bg-purple-500 rounded-full opacity-30 blur-3xl blob1"></div>
     <div class="absolute top-1/3 left-1/2 w-[300px] h-[300px] bg-pink-500 rounded-full opacity-30 blur-2xl blob2"></div>
     <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-500 rounded-full opacity-25 blur-3xl blob3"></div>
@@ -82,7 +74,7 @@
   <!-- Header -->
   <header class="flex items-center justify-start px-6 py-4 z-10">
     <a href="/" class="flex items-center logo-tilt">
-          <img src="leadium.png" alt="Leadium Logo" class="h-12 sm:h-14 w-auto" />
+      <img src="leadium.png" alt="Leadium Logo" class="h-12 sm:h-14 w-auto" />
     </a>
   </header>
 
@@ -144,8 +136,44 @@
     &copy; 2025 Leadium. All rights reserved.
   </footer>
 
+  <!-- particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
   <!-- JS -->
   <script>
+    // particles.js config
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        size: { value: 3 },
+        color: { value: "#ffffff" },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#ffffff",
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 1
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "grab" },
+          onclick: { enable: true, mode: "push" }
+        },
+        modes: {
+          grab: { distance: 200, line_linked: { opacity: 0.8 } },
+          push: { particles_nb: 4 }
+        }
+      },
+      retina_detect: true
+    });
+
+    // form logic
     const form = document.getElementById('email-form');
     const modal = document.getElementById('success-modal');
 
@@ -171,4 +199,5 @@
     });
   </script>
 </body>
+
 </html>
